@@ -19,7 +19,6 @@
 package org.drools.model.codegen.execmodel;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import org.drools.drl.ast.descr.PackageDescr;
 import org.drools.drl.ast.dsl.DescrFactory;
@@ -137,16 +136,8 @@ public class BuildFromDescrTest {
 
         Collection<Result> results = getObjectsIntoList(ksession, Result.class);
         assertThat(results.size()).isEqualTo(2);
-        results.stream().map(Result::toString).forEach(System.out::println);
-        // Check if the results contain the expected values
-        boolean containsM77 = results.stream()
-                                        .map(Result::toString)
-                                        .anyMatch(s -> s.equals("77"));
-
-        boolean containsE68 = results.stream()
-                                        .map(Result::toString)
-                                        .anyMatch(s -> s.equals("68"));
-
+        boolean containsM77 = results.stream().map(Result::toString).anyMatch(s -> s.equals("77"));
+        boolean containsE68 = results.stream().map(Result::toString).anyMatch(s -> s.equals("68"));
         assertTrue(containsM77);
         assertTrue(containsE68);
     }
